@@ -1,4 +1,4 @@
-# Lumberjacking.py
+# lumberjacking.py
 
 Questo script è fatto per ottimizzare il processo per tagliare la legna.
 

@@ -22,9 +22,13 @@ All'interno di ogni cartella, ci saranno i file degli scripts e un file ***how_i
 
 > ### Skills
 >
+> #### Thieving
+>
+> - [poisoning](https://github.com/Cantilux/UO-Last-Hera-Scripts/blob/master/skills/trade/poisoning.py)
+>
 > #### Trade
 >
-> - [Lumberjacking](https://github.com/Cantilux/UO-Last-Hera-Scripts/blob/master/skills/trade/Lumberjacking.py)
+> - [lumberjacking](https://github.com/Cantilux/UO-Last-Hera-Scripts/blob/master/skills/trade/lumberjacking.py)
 >
 
 _________________
@@ -33,6 +37,8 @@ _________________
 >
 > #### Combat
 >
-> - [Buff](https://github.com/Cantilux/UO-Last-Hera-Scripts/blob/master/misc/combat/Buff.py)
+> - [buff](https://github.com/Cantilux/UO-Last-Hera-Scripts/blob/master/misc/combat/buff.py)
+> - [heal magery](https://github.com/Cantilux/UO-Last-Hera-Scripts/blob/master/misc/combat/heal_magery.py)
+> - [two weapon](https://github.com/Cantilux/UO-Last-Hera-Scripts/blob/master/misc/combat/two_weapon.py)
 >
 _________________
