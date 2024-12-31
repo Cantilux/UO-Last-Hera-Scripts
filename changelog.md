@@ -7,7 +7,8 @@ aggiornamenti, bugfix e rilasci di nuovi script.
     - rilascio versione 1.0 script poisoning-alchemy in skills/thieving
     - revisione script buff a versione 1.1 in misc/combat
     - indagine ancora in corso per problema noto script lumberjacking
-    - rilascio versione 1.0 script healMagery in misc/combat
+    - rilascio versione 1.0 script heal_magery in misc/combat
+    - rilascio versione 1.0 script two_weapon in misc/combat
 
 ## 13-12-2024
 
