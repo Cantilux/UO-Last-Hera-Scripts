@@ -14,18 +14,19 @@ while True:
     if len(potions) < 1:
         # Create a poison
         Items.UseItemByID(0xe9b, 0)
-        Gumps.WaitForGump(0x4dc, 10000)
+        gump = Gumps.CurrentGump()
+        Gumps.WaitForGump(gump, 10000)
         Misc.Pause(500)
-        Gumps.SendAction(0x4dc, 1)
-        Gumps.WaitForGump(0x4dc, 10000)
+        Gumps.SendAction(gump, 1)
+        Gumps.WaitForGump(gump, 10000)
         Misc.Pause(500)
-        Gumps.SendAction(0x4dc, 404)
-        Gumps.WaitForGump(0x4dc, 10000)
+        Gumps.SendAction(gump, 404)
+        Gumps.WaitForGump(gump, 10000)
         Misc.Pause(500)
-        Gumps.SendAction(0x4dc, 611) #sostituire tipo di pozione
-        Gumps.WaitForGump(0x4dc, 10000)
+        Gumps.SendAction(gump, 611) #sostituire tipo di pozione
+        Gumps.WaitForGump(gump, 10000)
         Misc.Pause(500)
-        Gumps.SendAction(0x4dc, 0)
+        Gumps.SendAction(gump, 0)
         Misc.SendMessage("Potion Created")
     else:
         # Use the first poison in the backpack
