@@ -2,6 +2,9 @@
 
 aggiornamenti, bugfix e rilasci di nuovi script.
 
+## 05-01-2024
+    - fix problema gump script poisoning-alchemy in skills/thieving
+
 ## 31-12-2024
 
     - rilascio versione 1.0 script poisoning-alchemy in skills/thieving
