@@ -2,6 +2,9 @@
 
 aggiornamenti, bugfix e rilasci di nuovi script.
 
+## 22-02-2025
+    - revisione e fix script lumberjacking a versione 1.1 in skills/trade
+
 ## 05-01-2024
     - fix problema gump script poisoning-alchemy in skills/thieving
 
@@ -15,5 +18,5 @@ aggiornamenti, bugfix e rilasci di nuovi script.
 
 ## 13-12-2024
 
-    - rilascio della versione 1.0 script lumberjacking in skills/trade.
-    - rilascio della versione 1.0 script buff in misc/combat.
+    - rilascio della versione 1.0 script lumberjacking in skills/trade
+    - rilascio della versione 1.0 script buff in misc/combat
