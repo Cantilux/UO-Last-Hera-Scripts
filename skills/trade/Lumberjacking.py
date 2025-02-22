@@ -1,83 +1,48 @@
-import sys
-
-# Funzione per smontare da cavallo
-def dismount():
-    if Player.Mount != None:
-        Mobiles.UseMobile(Player.Serial)
-
-# Funzione per montare cavallo        
-def ride():
-    if Player.Mount == None:
-        creatures = Mobiles.ApplyFilter(Mobiles.Filter())
-        filterPet = Mobiles.Filter()
-        filterPet.IgnorePets = True
-        filtered = Mobiles.ApplyFilter(filterPet)
-        for creature in creatures:
-            if creature not in filtered:
-                Mobiles.UseMobile(creature)
-                sys.exit(99)
-
-# Funzione per equipaggiare l'accetta
-def equip_hatchet(hatchet):
-    layer = Player.GetItemOnLayer('LeftHand')
-    if layer != None:
-        if Player.CheckLayer('LeftHand'):
-            Player.UnEquipItemByLayer('LeftHand',100)
-        if Player.CheckLayer('RightHand'):
-            Player.UnEquipItemByLayer('RightHand',100)
-        Misc.Pause(500)
-    Player.EquipItem(hatchet)
-
-# Funzione per tagliare gli alberi 
-def chop_tree_tiles():
-    # Ciclo per i tile vicini al player
-    for x in range(-1, 2):
-        for y in range(-1, 2):
-            target_x = Player.Position.X + x
-            target_y = Player.Position.Y + y
-            target_z = Player.Position.Z
-            tile = Statics.GetStaticsTileInfo(target_x, target_y, target_z)
-            if len(tile) > 1:
-                tileId = tile[0].StaticID
-                # Verifica se il tile è un albero
-                if Statics.GetTileFlag(tileId, 'Impassable') and Statics.GetTileFlag(tileId, 'Foliage'):
-                    # Scende da cavallo
-                    dismount()
-                    # Equipaggia l'accetta
-                    Items.UseItem(hatchet)
-                    Target.WaitForTarget(500, False)
-                    # Taglia l'albero
-                    Target.TargetExecute(Player.Position.X + x, Player.Position.Y + y, Player.Position.Z, tileId)
-    
-
-# Zaino
-backpack = Player.Backpack.Serial
-# Lista delle accette nello zaino
-hatchets = Items.FindAllByID(0x0F43, -1, backpack, -1)
-# Verifica se ci sono accette nello zaino
-if len(hatchets) > 0:
-    # Accetta
-    hatchet = hatchets[0]
-    equip_hatchet(hatchet)
-    stop_chop = False
-    # Peso massimo
-    max_weight = Player.MaxWeight - 10
-    Journal.Clear()
-    # Ciclo per tagliare gli alberi
-    while stop_chop == False:
-        # Verifica se c'è ancora legna da tagliare
-        if Journal.Search("There is nothing here to chop") == True:
-            Player.ChatSay("Non c'è niente qui da tagliare")
-        # Verifica se il peso è maggiore del peso massimo
-        if Player.Weight >= max_weight:
-            stop_chop = True
-            Player.ChatSay("Peso Massimo Raggiunto")
-        # Taglia gli alberi
-        chop_tree_tiles()
-        Misc.Pause(6000)
-    # Monta cavallo
-    ride()
-else:
-    Player.ChatSay("0 Accette nello zaino")
-
-sys.exit(99)
+# posizione del pg
+player_x = Player.Position.X
+player_y = Player.Position.Y
+position_x = Player.Position.X
+position_y = Player.Position.Y
+tileLists = []
+# controlla che ci siano oggetti nei tile adiacenti
+for x in [-1, 0, 1]:
+    position_x = player_x + x
+    for y in [-1, 0, 1]:
+        position_y = player_y + y
+        tiles = Statics.GetStaticsTileInfo(position_x, position_y ,0)
+        if len(tiles) >= 1:
+            for t in tiles:
+                tileLists.append([position_x, position_y, t.StaticID])
+                
+# inizia la verifica se c'è almeno un oggetto
+if len(tileLists) >= 1:
+    # per ogni tile in lista
+    for tile in tileLists:
+        # controlla che l'oggetto nel tile sia un albero
+        if Statics.GetTileFlag(tile[2], 'Impassable') and Statics.GetTileFlag(tile[2], 'Foliage'):
+            # serve per evitare errori
+            Journal.Clear()
+            # inizia a tagliare finché un albero non si esaurisce
+            max_weight = Player.MaxWeight - 10
+            chop = True
+            while chop:
+                item = Player.GetItemOnLayer('LeftHand')
+                Items.UseItem(item)
+                Target.WaitForTarget(1000, False)
+                Target.TargetExecute(tile[0], tile[1] ,0, tile[2])
+                Misc.Pause(500)
+                if Journal.Search("There is nothing here to chop.") == True:
+                    chop = False
+                    break
+                if Journal.Search("That is too far away.") == True:
+                    chop = False
+                    break
+                if Journal.Search("It appears immune to your blow") == True:
+                    chop = False
+                    break
+                if Player.Weight >= max_weight:
+                    chop = False
+                    Player.ChatSay("Peso Massimo Raggiunto")
+                    break
+                else:
+                    Misc.Pause(8000)
